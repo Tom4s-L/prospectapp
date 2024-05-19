@@ -62,3 +62,7 @@ button:hover .ql-fill,
 main {
   @apply p-8
 }
+
+.label-margin label {
+  @apply mb-2;
+}

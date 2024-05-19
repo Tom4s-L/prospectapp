@@ -2,10 +2,18 @@
   <main>
     <ClientOnly>
       <UForm :state="state" class="flex flex-col gap-8">
-        <UFormGroup label="Template Name" name="templateName">
+        <UFormGroup
+          label="Template Name"
+          name="templateName"
+          class="label-margin"
+        >
           <UInput v-model="state.templateName" />
         </UFormGroup>
-        <UFormGroup label="Template content" name="body">
+        <UFormGroup
+          label="Template content"
+          name="body"
+          class="label-margin"
+        >
           <QuillEditor id="body" v-model:content="state.body" />
         </UFormGroup>
         <UButton @click="test">
