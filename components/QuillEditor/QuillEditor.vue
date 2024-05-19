@@ -26,5 +26,4 @@ const options = ref({
 </script>
 
 <style>
-
 </style>
