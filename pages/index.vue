@@ -1,36 +1,36 @@
 <template>
-  <ClientOnly>
-    <UForm :state="state">
-      <UFormGroup label="Template Name" name="templateName">
-        <UInput v-model="state.templateName" />
-      </UFormGroup>
-      <UFormGroup label="Template content" name="body">
-        <QuillEditor id="body" v-model:content="body"/>
-      </UFormGroup>
-      <UButton>Button</UButton>
-    </UForm>
-  </ClientOnly>
+  <main>
+    <ClientOnly>
+      <UForm :state="state">
+        <UFormGroup label="Template Name" name="templateName">
+          <UInput v-model="state.templateName" />
+        </UFormGroup>
+        <UFormGroup label="Template content" name="body">
+          <QuillEditor id="body" v-model:content="state.body" />
+        </UFormGroup>
+        <UButton>Button</UButton>
+      </UForm>
+    </ClientOnly>
 
-  <h2>Preview</h2>
-  <div class="quill-preview ql-container ql-snow">
-    <div class="ql-editor" v-html="body"></div>
-  </div>
-
+    <UButton @click="test">
+      Test
+    </UButton>
+  </main>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import '@vueup/vue-quill/dist/vue-quill.snow.css';  // Import des styles Quill
+import { reactive } from 'vue';
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const state = reactive({
   templateName: '',
+  body: '',
 });
-const body = ref('');
+
+function test() {
+  state.body = '<h1>Test</h1><p>Ceci est un test les mecs</p>';
+}
 </script>
 
 <style scoped>
-.quill-preview {
-  margin-top: 20px;
-  border: 1px solid #ccc;
-}
 </style>
