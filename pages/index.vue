@@ -1,20 +1,18 @@
 <template>
   <main>
     <ClientOnly>
-      <UForm :state="state">
+      <UForm :state="state" class="flex flex-col gap-8">
         <UFormGroup label="Template Name" name="templateName">
           <UInput v-model="state.templateName" />
         </UFormGroup>
         <UFormGroup label="Template content" name="body">
           <QuillEditor id="body" v-model:content="state.body" />
         </UFormGroup>
-        <UButton>Button</UButton>
+        <UButton @click="test">
+          Button
+        </UButton>
       </UForm>
     </ClientOnly>
-
-    <UButton @click="test">
-      Test
-    </UButton>
   </main>
 </template>
 
@@ -28,7 +26,7 @@ const state = reactive({
 });
 
 function test() {
-  state.body = '<h1>Test</h1><p>Ceci est un test les mecs</p>';
+  console.log(state);
 }
 </script>
 
