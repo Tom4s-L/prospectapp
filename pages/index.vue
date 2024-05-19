@@ -43,6 +43,7 @@
     </ClientOnly>
 
     <pre>{{ state }}</pre>
+    <pre>{{ templates }}</pre>
   </main>
 </template>
 
@@ -90,6 +91,8 @@ function clearErrors() {
   for (const key in errors)
     errors[key as keyof typeof errors] = '';
 }
+
+const { data: templates } = await useAsyncData('fetchData', () => $fetch('/api/template'));
 </script>
 
 <style scoped>
