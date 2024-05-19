@@ -1,5 +1,9 @@
 <template>
   <main>
+    <section>
+      <pre>{{ templates }}</pre>
+    </section>
+
     <ClientOnly>
       <UForm
         :schema="schema"
@@ -41,9 +45,6 @@
         </UButton>
       </UForm>
     </ClientOnly>
-
-    <pre>{{ state }}</pre>
-    <pre>{{ templates }}</pre>
   </main>
 </template>
 
@@ -53,6 +54,7 @@ import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { z } from 'zod';
 import type { FormSubmitEvent } from '#ui/types';
 
+type Schema = z.output<typeof schema>;
 const schema = z.object({
   templateName: z.string().min(1, 'Template name is required'),
   mailObject: z.string().min(1, 'Mail object is required'),
@@ -60,39 +62,44 @@ const schema = z.object({
     .transform(val => val.trim() === '<p><br></p>' ? '' : val)
     .refine(val => val.length > 0, 'At least one character is required'),
 });
-
-type Schema = z.output<typeof schema>
-
 const state = reactive({
   templateName: '',
   mailObject: '',
   mailContent: '',
 });
-
 const errors = reactive({
   templateName: '',
   mailObject: '',
   mailContent: '',
 });
+const { templates, refresh } = await fetchTemplates();
 
-function onSubmit(event: FormSubmitEvent<Schema>) {
-  console.log(event.data);
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  await $fetch('/api/template', {
+    method: 'POST',
+    body: {
+      name: event.data.templateName,
+      mailObject: event.data.mailObject,
+      mailContent: event.data.mailContent,
+    },
+  });
   clearErrors();
+  await refresh();
 }
-
 function onInvalid(errorsList: Array<{ path: string, message: string }>) {
   clearErrors();
   errorsList.forEach((error) => {
     errors[error.path as keyof typeof errors] = error.message;
   });
 }
-
 function clearErrors() {
   for (const key in errors)
     errors[key as keyof typeof errors] = '';
 }
-
-const { data: templates } = await useAsyncData('fetchData', () => $fetch('/api/template'));
+async function fetchTemplates() {
+  const { data: templates, refresh } = await useAsyncData('fetchData', () => $fetch('/api/template'));
+  return { templates, refresh };
+}
 </script>
 
 <style scoped>
