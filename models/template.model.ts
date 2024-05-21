@@ -3,6 +3,7 @@ interface TemplateModelProps {
   name: string
   mailObject: string
   mailContent: string
+  createdAt: string
 }
 
 export class TemplateModel {
@@ -10,6 +11,7 @@ export class TemplateModel {
   name: string = '';
   mailObject: string = '';
   mailContent: string = '';
+  createdAt: string = '';
 
   static fromRow(row: TemplateModelProps) {
     return Object.assign(new TemplateModel(), {
@@ -17,6 +19,7 @@ export class TemplateModel {
       name: row.name,
       mailObject: row.mailObject,
       mailContent: row.mailContent,
+      createdAt: row.createdAt,
     });
   }
 }

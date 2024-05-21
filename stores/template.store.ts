@@ -11,6 +11,7 @@ export const useTemplateStore = defineStore('template', {
       try {
         const response = await $fetch('/api/template');
         const templates = response?.data || [];
+        console.log('Templates:', templates);
         this.templates = templates.map((template: any) => {
           return { ...TemplateModel.fromRow(template) };
         });

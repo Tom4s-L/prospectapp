@@ -2,7 +2,7 @@
   <main>
     <CreateTemplate @refresh="templateStore.fetchTemplates()" />
 
-    <section>
+    <section class="flex flex-wrap gap-6">
       <PreviewTemplate
         v-for="template in templates"
         :key="template.id"

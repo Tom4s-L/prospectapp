@@ -10,6 +10,10 @@ const TemplateSchema = new Schema({
   mailContent: {
     type: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export const TemplateModel = model('Template', TemplateSchema);
