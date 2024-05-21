@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2 items-center">
+  <div class="flex gap-2 items-center rounded-md p-3 bg-cool-800">
     <NuxtImg
       src="/svg/template.svg"
       alt="Template SVG"
@@ -9,7 +9,11 @@
       <p>Name: {{ props.template.name }}</p>
       <p>Created at: {{ formatDate(new Date(props.template.createdAt)) }}</p>
     </div>
-    <UButton icon="i-heroicons-eye" size="2xs">
+    <UButton
+      icon="i-heroicons-eye"
+      size="2xs"
+      class="ml-auto"
+    >
       View
     </UButton>
   </div>
