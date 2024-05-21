@@ -1,20 +1,26 @@
 <template>
   <main>
-    <!--    <CreateTemplate @refresh="refreshTemplates" /> -->
+    <CreateTemplate @refresh="templateStore.fetchTemplates()" />
 
     <section>
-      <pre>{{ templates }}</pre>
+      <PreviewTemplate
+        v-for="template in templates"
+        :key="template.id"
+        :template="template"
+      />
     </section>
   </main>
 </template>
 
 <script setup lang="ts">
 const templateStore = useTemplateStore();
-await templateStore.fetchTemplates();
 
 const templates = computed(() => templateStore.templates);
+
+onBeforeMount(async () => {
+  await templateStore.fetchTemplates();
+});
 </script>
 
 <style scoped>
-
 </style>

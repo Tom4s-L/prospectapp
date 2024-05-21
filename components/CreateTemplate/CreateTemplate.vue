@@ -59,7 +59,7 @@ const emit = defineEmits(['refresh']);
 
 type Schema = z.output<typeof schema>;
 const schema = z.object({
-  templateName: z.string().min(1, 'Template name is required'),
+  templateName: z.string().min(1, 'PreviewTemplate name is required'),
   mailObject: z.string().min(1, 'Mail object is required'),
   mailContent: z.string()
     .transform(val => val.trim() === '<p><br></p>' ? '' : val)

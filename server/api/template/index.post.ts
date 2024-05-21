@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
 
     return {
       status: 201,
-      message: 'Template created successfully',
+      message: 'PreviewTemplate created successfully',
     };
   }
   catch (error) {
