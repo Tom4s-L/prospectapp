@@ -1,14 +1,22 @@
 import { TemplateModel } from '~/server/api/template/template.schema';
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
+  try {
+    const body = await readBody(event);
 
-  const newTemplateModel = new TemplateModel(body);
+    const newTemplateModel = new TemplateModel(body);
 
-  await newTemplateModel.save();
+    await newTemplateModel.save();
 
-  return {
-    status: 201,
-    message: 'Template created successfully',
-  };
+    return {
+      status: 201,
+      message: 'Template created successfully',
+    };
+  }
+  catch (error) {
+    return {
+      status: 500,
+      message: 'Internal server error',
+    };
+  }
 });

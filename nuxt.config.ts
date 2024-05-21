@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: [
     '~/assets/css/main.css',
+    '~/assets/css/quill-editor.css',
   ],
   modules: ['@nuxt/ui', '@pinia/nuxt'],
   nitro: {
