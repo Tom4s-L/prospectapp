@@ -1,5 +1,9 @@
 <template>
-  <UButton label="Create new" @click="modalIsOpen = true" />
+  <UButton
+    label="Create new"
+    class="self-end"
+    @click="modalIsOpen = true"
+  />
 
   <ClientOnly>
     <UModal v-model="modalIsOpen" :ui="{ width: 'sm:max-w-[768px]' }">

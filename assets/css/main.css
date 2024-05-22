@@ -2,6 +2,14 @@ main {
   @apply p-8
 }
 
+h2 {
+  @apply text-2xl font-bold;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 .label-margin label {
   @apply mb-2;
 }
