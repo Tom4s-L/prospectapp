@@ -1,7 +1,9 @@
 <template>
   <UButton
-    label="Create new"
-    class="self-end"
+    :label="props.buttonLabel"
+    :icon="props.buttonIcon"
+    :color="props.buttonColor"
+    :size="props.buttonSize"
     @click="modalIsOpen = true"
   />
 
@@ -44,8 +46,8 @@
             />
             <span v-if="errors.mailContent" class="error-message">{{ errors.mailContent }}</span>
           </UFormGroup>
-          <UButton type="submit" class="m-auto">
-            Send
+          <UButton type="submit" class="ml-auto">
+            Validate
           </UButton>
         </UForm>
       </div>
@@ -59,6 +61,24 @@ import { reactive } from 'vue';
 import { z } from 'zod';
 import type { FormSubmitEvent } from '#ui/types';
 
+const props = defineProps({
+  buttonLabel: {
+    type: String,
+    default: 'Create new',
+  },
+  buttonIcon: {
+    type: String,
+    default: undefined,
+  },
+  buttonColor: {
+    type: String,
+    default: undefined,
+  },
+  buttonSize: {
+    type: String,
+    default: '2xs',
+  },
+});
 const emit = defineEmits(['refresh']);
 
 type Schema = z.output<typeof schema>;
@@ -80,6 +100,8 @@ const errors = reactive({
   mailContent: '',
 });
 const modalIsOpen = ref(false);
+const editMode = ref(false);
+const templateStore = useTemplateStore();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   await $fetch('/api/template', {
@@ -110,6 +132,21 @@ function clearState() {
   state.mailObject = '';
   state.mailContent = '';
 }
+function setFieldsFromTemplateStore() {
+  if (templateStore.currentTemplate) {
+    const currentTemplate = templateStore.currentTemplate;
+    state.templateName = currentTemplate.name;
+    state.mailObject = currentTemplate.mailObject;
+    state.mailContent = currentTemplate.mailContent;
+  }
+}
+
+onMounted(() => {
+  if (templateStore.currentTemplate) {
+    editMode.value = true;
+    setFieldsFromTemplateStore();
+  }
+});
 </script>
 
 <style scoped>

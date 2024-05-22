@@ -1,20 +1,5 @@
 <template>
   <div class="flex items-center gap-2 rounded-md p-3 bg-cool-800">
-    <UModal
-      v-model="modalIsOpen"
-      :ui="{ width: 'sm:max-w-[768px]' }"
-    >
-      <UCard>
-        <template #header>
-          <h2 class="text-xl font-bold">
-            {{ props.template.name }}
-          </h2>
-        </template>
-
-        <div class="bg-cool-800 p-3 rounded-md" v-html="props.template.mailObject" />
-        <div class="mt-6" v-html="props.template.mailContent" />
-      </UCard>
-    </umodal>
     <NuxtImg
       src="/svg/template.svg"
       alt="Template SVG"
@@ -32,11 +17,42 @@
     >
       View
     </UButton>
+    <UpsertTemplate
+      button-icon="i-heroicons-pencil-square"
+      button-color="gray"
+      button-label="Edit"
+    />
   </div>
+
+  <UModal
+    v-model="modalIsOpen"
+    :ui="{ width: 'sm:max-w-[768px]' }"
+  >
+    <UCard>
+      <template #header>
+        <h2 class="text-xl font-bold">
+          {{ props.template.name }}
+        </h2>
+      </template>
+
+      <div class="flex flex-col gap-6">
+        <div>
+          E-mail object:
+          <div class="bg-cool-800 p-3 mt-3 rounded-md" v-html="props.template.mailObject" />
+        </div>
+
+        <div>
+          E-mail content:
+          <div class="bg-cool-800 p-3 mt-3 rounded-md" v-html="props.template.mailContent" />
+        </div>
+      </div>
+    </UCard>
+  </umodal>
 </template>
 
 <script setup lang="ts">
 import type { TemplateModel } from '~/models/template.model';
+import UpsertTemplate from '~/components/UpsertTemplate/UpsertTemplate.vue';
 
 const props = defineProps({
   template: {

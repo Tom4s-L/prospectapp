@@ -19,5 +19,8 @@ export const useTemplateStore = defineStore('template', {
         console.error('Error fetching templates:', error);
       }
     },
+    setCurrentTemplate(templateId: string) {
+      this.currentTemplate = this.templates.find(template => template.id === templateId) || null;
+    },
   },
 });
