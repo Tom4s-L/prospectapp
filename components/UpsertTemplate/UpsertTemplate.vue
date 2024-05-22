@@ -4,7 +4,7 @@
     :icon="props.buttonIcon"
     :color="props.buttonColor"
     :size="props.buttonSize"
-    @click="modalIsOpen = true"
+    @click="openModal"
   />
 
   <ClientOnly>
@@ -22,6 +22,7 @@
             label="Template Name"
             name="templateName"
             class="label-margin"
+            required
           >
             <UInput v-model="state.templateName" :class="{ 'input-error': errors.templateName }" />
             <span v-if="errors.templateName" class="error-message">{{ errors.templateName }}</span>
@@ -30,6 +31,7 @@
             label="Mail object"
             name="mailObject"
             class="label-margin"
+            required
           >
             <UInput v-model="state.mailObject" :class="{ 'input-error': errors.mailObject }" />
             <span v-if="errors.mailObject" class="error-message">{{ errors.mailObject }}</span>
@@ -38,6 +40,7 @@
             label="Template content"
             name="mailContent"
             class="label-margin"
+            required
           >
             <QuillEditor
               id="body"
@@ -162,11 +165,11 @@ function setFieldsFromTemplateStore(templateId: string) {
     state.mailContent = currentTemplate.mailContent;
   }
 }
-
-onMounted(() => {
+function openModal() {
   if (props.editMode && props.templateId)
     setFieldsFromTemplateStore(props.templateId);
-});
+  modalIsOpen.value = true;
+}
 </script>
 
 <style scoped>

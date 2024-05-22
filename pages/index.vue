@@ -6,7 +6,7 @@
     </div>
 
     {{ templates.length }} elements
-    <div class="flex flex-col gap-3 max-h-80 rounded-md overflow-auto p-3 bg-cool-700">
+    <div class="flex flex-col gap-3 max-h-96 rounded-md overflow-auto p-3 bg-cool-700">
       <PreviewTemplate
         v-for="template in templates"
         :key="template.id"

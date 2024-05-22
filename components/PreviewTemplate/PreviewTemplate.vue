@@ -9,21 +9,23 @@
       <p>Name: {{ props.template.name }}</p>
       <p>Created at: {{ formatDate(new Date(props.template.createdAt)) }}</p>
     </div>
-    <UButton
-      icon="i-heroicons-eye"
-      size="2xs"
-      class="ml-auto"
-      @click="modalIsOpen = true"
-    >
-      View
-    </UButton>
-    <UpsertTemplate
-      button-icon="i-heroicons-pencil-square"
-      button-color="gray"
-      button-label="Edit"
-      :edit-mode="true"
-      :template-id="props.template.id"
-    />
+
+    <div class="flex gap-2 ml-auto">
+      <UpsertTemplate
+        button-icon="i-heroicons-pencil-square"
+        button-color="gray"
+        button-label="Edit"
+        :edit-mode="true"
+        :template-id="props.template.id"
+      />
+      <UButton
+        icon="i-heroicons-eye"
+        size="2xs"
+        @click="modalIsOpen = true"
+      >
+        View
+      </UButton>
+    </div>
   </div>
 
   <UModal

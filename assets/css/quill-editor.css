@@ -40,6 +40,20 @@
   color: #000 !important;
 }
 
+.ql-picker-label:hover {
+  background: none !important;
+  stroke: none;
+}
+
+.ql-picker-label > svg:hover{
+  fill: red !important;
+}
+
+.ql-picker-label:hover svg .ql-stroke {
+  fill: none;
+  stroke: #ffffff !important;
+}
+
 button:hover .ql-stroke,
 .ql-picker-label:hover .ql-stroke {
   fill: none;
