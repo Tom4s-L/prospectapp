@@ -62,6 +62,14 @@ import { z } from 'zod';
 import type { FormSubmitEvent } from '#ui/types';
 
 const props = defineProps({
+  editMode: {
+    type: Boolean,
+    default: false,
+  },
+  templateId: {
+    type: String,
+    default: undefined,
+  },
   buttonLabel: {
     type: String,
     default: 'Create new',
@@ -79,7 +87,6 @@ const props = defineProps({
     default: '2xs',
   },
 });
-const emit = defineEmits(['refresh']);
 
 type Schema = z.output<typeof schema>;
 const schema = z.object({
@@ -100,22 +107,36 @@ const errors = reactive({
   mailContent: '',
 });
 const modalIsOpen = ref(false);
-const editMode = ref(false);
 const templateStore = useTemplateStore();
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  await $fetch('/api/template', {
-    method: 'POST',
-    body: {
-      name: event.data.templateName,
-      mailObject: event.data.mailObject,
-      mailContent: event.data.mailContent,
-    },
-  });
+  if (props.editMode && props.templateId) {
+    await $fetch(`/api/template?templateId=${props.templateId}`, {
+      method: 'PATCH',
+      body: {
+        name: event.data.templateName,
+        mailObject: event.data.mailObject,
+        mailContent: event.data.mailContent,
+      },
+    });
+    console.log('Updated');
+  }
+  else {
+    await $fetch('/api/template', {
+      method: 'POST',
+      body: {
+        name: event.data.templateName,
+        mailObject: event.data.mailObject,
+        mailContent: event.data.mailContent,
+      },
+    });
+    console.log('Created');
+  }
   clearState();
   clearErrors();
   modalIsOpen.value = false;
-  emit('refresh');
+  templateStore.currentTemplate = null;
+  await templateStore.fetchTemplates();
 }
 function onInvalid(errorsList: Array<{ path: string, message: string }>) {
   clearErrors();
@@ -132,7 +153,8 @@ function clearState() {
   state.mailObject = '';
   state.mailContent = '';
 }
-function setFieldsFromTemplateStore() {
+function setFieldsFromTemplateStore(templateId: string) {
+  templateStore.setCurrentTemplate(templateId);
   if (templateStore.currentTemplate) {
     const currentTemplate = templateStore.currentTemplate;
     state.templateName = currentTemplate.name;
@@ -142,10 +164,8 @@ function setFieldsFromTemplateStore() {
 }
 
 onMounted(() => {
-  if (templateStore.currentTemplate) {
-    editMode.value = true;
-    setFieldsFromTemplateStore();
-  }
+  if (props.editMode && props.templateId)
+    setFieldsFromTemplateStore(props.templateId);
 });
 </script>
 

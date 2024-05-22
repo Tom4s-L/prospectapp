@@ -21,6 +21,8 @@
       button-icon="i-heroicons-pencil-square"
       button-color="gray"
       button-label="Edit"
+      :edit-mode="true"
+      :template-id="props.template.id"
     />
   </div>
 

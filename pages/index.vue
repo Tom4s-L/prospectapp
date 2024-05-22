@@ -2,7 +2,7 @@
   <main class="h-dvh flex flex-col gap-6">
     <h2>Templates</h2>
     <div class="flex justify-end">
-      <UpsertTemplate class="ml-auto" @refresh="templateStore.fetchTemplates()" />
+      <UpsertTemplate />
     </div>
 
     {{ templates.length }} elements
