@@ -17,7 +17,7 @@
 const links = [
   {
     label: 'Templates',
-    icon: 'i-heroicons-document',
+    icon: 'i-heroicons-document-text',
     to: '/template',
   },
   {
