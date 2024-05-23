@@ -19,6 +19,11 @@ export const useTemplateStore = defineStore('template', {
         console.error('Error fetching templates:', error);
       }
     },
+    async deleteTemplate(templateId: string) {
+      const response = await $fetch(`/api/template?templateId=${templateId}`, { method: 'DELETE' });
+      if (response?.status === 200)
+        this.templates = this.templates.filter(template => template.id !== templateId);
+    },
     setCurrentTemplate(templateId: string) {
       this.currentTemplate = this.templates.find(template => template.id === templateId) || null;
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center gap-2 rounded-md p-3 bg-cool-800">
+  <div class="flex items-center gap-2 flex-wrap rounded-md p-3 bg-cool-800">
     <NuxtImg
       src="/svg/template.svg"
       alt="Template SVG"
@@ -23,8 +23,17 @@
         size="2xs"
         @click="modalIsOpen = true"
       >
-        View
+        Preview
       </UButton>
+    </div>
+    <div class="w-full flex justify-end">
+      <ULink
+        type="button"
+        class="text-red-500"
+        @click="deleteTemplate"
+      >
+        Delete
+      </ULink>
     </div>
   </div>
 
@@ -64,6 +73,7 @@ const props = defineProps({
     required: true,
   },
 });
+const templateStore = useTemplateStore();
 
 const modalIsOpen = ref(false);
 
@@ -75,6 +85,9 @@ function formatDate(date: Date) {
     hour: '2-digit',
     minute: '2-digit',
   });
+}
+async function deleteTemplate() {
+  await templateStore.deleteTemplate(props.template.id);
 }
 </script>
 
