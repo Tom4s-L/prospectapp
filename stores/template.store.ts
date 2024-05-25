@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { TemplateModel } from '~/models/template.model';
+import { TemplateModel } from '~/models';
 
 export const useTemplateStore = defineStore('template', {
   state: (): { templates: TemplateModel[], currentTemplate: TemplateModel | null } => ({

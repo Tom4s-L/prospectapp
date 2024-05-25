@@ -92,10 +92,18 @@ const state = reactive({
   type: '',
 });
 const schema = z.object({
-  firstname: z.string({ required_error: 'Firstname is required' }).min(1, 'At least one character is needed'),
-  lastname: z.string({ required_error: 'Lastname is required' }).min(1, 'At least one character is needed'),
-  email: z.string({ required_error: 'Email is required' }).email('Invalid email'),
-  type: z.string({ required_error: 'Type is required' }).min(1, 'At least one character is needed'),
+  firstname: z.string()
+    .trim()
+    .min(1, 'At least one character is needed'),
+  lastname: z.string()
+    .trim()
+    .min(1, 'At least one character is needed'),
+  email: z.string()
+    .trim()
+    .email('Invalid email'),
+  type: z.string()
+    .trim()
+    .min(1, 'At least one character is needed'),
 });
 const errors = reactive({
   firstname: '',
@@ -109,7 +117,7 @@ function openModal() {
   modalIsOpen.value = true;
 }
 async function onSubmit() {
-  console.log('submit');
+  console.log('submit', state);
 }
 function onInvalid(errorsList: Array<{ path: string, message: string }>) {
   clearErrors();
