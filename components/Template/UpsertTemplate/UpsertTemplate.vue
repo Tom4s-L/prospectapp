@@ -24,8 +24,8 @@
             class="label-margin"
             required
           >
-            <UInput v-model="state.templateName" :class="{ 'input-error': errors.templateName }" />
-            <span v-if="errors.templateName" class="error-message">{{ errors.templateName }}</span>
+            <UInput v-model="state.templateName" />
+            <span v-if="errors.templateName">{{ errors.templateName }}</span>
           </UFormGroup>
           <UFormGroup
             label="Mail object"
@@ -33,8 +33,8 @@
             class="label-margin"
             required
           >
-            <UInput v-model="state.mailObject" :class="{ 'input-error': errors.mailObject }" />
-            <span v-if="errors.mailObject" class="error-message">{{ errors.mailObject }}</span>
+            <UInput v-model="state.mailObject" />
+            <span v-if="errors.mailObject">{{ errors.mailObject }}</span>
           </UFormGroup>
           <UFormGroup
             label="Template content"
@@ -47,7 +47,7 @@
               v-model:content="state.mailContent"
               :class="{ 'input-error': errors.mailContent }"
             />
-            <span v-if="errors.mailContent" class="error-message">{{ errors.mailContent }}</span>
+            <span v-if="errors.mailContent">{{ errors.mailContent }}</span>
           </UFormGroup>
           <UButton type="submit" class="ml-auto">
             Validate
@@ -173,11 +173,4 @@ function openModal() {
 </script>
 
 <style scoped>
-.input-error {
-  border-color: red;
-}
-.error-message {
-  color: red;
-  font-size: 0.875em;
-}
 </style>

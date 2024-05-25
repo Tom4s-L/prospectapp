@@ -65,7 +65,7 @@
 
 <script setup lang="ts">
 import type { TemplateModel } from '~/models/template.model';
-import UpsertTemplate from '~/components/UpsertTemplate/UpsertTemplate.vue';
+import UpsertTemplate from '~/components/Template/UpsertTemplate/UpsertTemplate.vue';
 
 const props = defineProps({
   template: {

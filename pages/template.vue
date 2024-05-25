@@ -23,7 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import UpsertTemplate from '~/components/UpsertTemplate/UpsertTemplate.vue';
+import UpsertTemplate from '~/components/Template/UpsertTemplate/UpsertTemplate.vue';
+import PreviewTemplate from '~/components/Template/PreviewTemplate/PreviewTemplate.vue';
 
 const templateStore = useTemplateStore();
 
